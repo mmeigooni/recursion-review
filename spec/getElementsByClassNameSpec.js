@@ -12,16 +12,23 @@ describe('getElementsByClassName', function() {
 
   it('should match the results of calling the built-in function', function() {
     $('body').addClass('targetClassName');
+    // for each string in htmlStrings
     htmlStrings.forEach(function(htmlString) {
+      // Set root element to current array element
       var $rootElement = $(htmlString);
+      // append rootElement to body
       $('body').append($rootElement);
-
+      // set new variable result to any element with 'targetClassName' using our written getElementsByClassName.js
       var result = getElementsByClassName('targetClassName');
+      // set new variable result to built in getElementsByClassName method
       var expectedNodeList = document.getElementsByClassName('targetClassName');
+      // create array of elements from expectedNodeList (HTML/DOM object????)
       var expectedArray = Array.prototype.slice.apply(expectedNodeList);
+      // use equality check to determine if both arrays are equivalent. Can't use === because they are stored in different memory locations
       var equality = _.isEqual(result, expectedArray); // why can't we use `===` here?
-      expect(equality).to.equal(FILL_ME_IN);
-
+      // if equality is true, then function behaving as expected
+      expect(equality).to.equal(true);
+      // remove current $rootElement to prepare for next test
       $rootElement.remove();
     });
     $('body').removeClass('targetClassName');
